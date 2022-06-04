@@ -16,8 +16,6 @@ class MailAPI:
         self.account = {} 
         self.token = None
 
-        self.emailsList = []
-
 
 # ----------------------[ Data operations ]----------------------
     # Print data
@@ -238,34 +236,4 @@ class MailAPI:
 
 
 
-        
-
-
-
-# ================================[ Main Program ]================================
-if __name__  == '__main__':
-
-    print(MailAPI.queryDomain())
-
-    bot = MailAPI()
-    
-    # bot.createAccount("pruebas16@knowledgemd.com", "1234")
-    bot.login("pruebas16@knowledgemd.com", "1234")
-    # bot.loadData()
-
-    # bot.getToken()
-    # bot.reqHeaders['Authorization'] = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTQyODU3MTUsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImJ1cnB0ZXN0MUBrbm93bGVkZ2VtZC5jb20iLCJpZCI6IjYyOWE2NTg2YWU2MmI2YmRkODBjOWYzNyIsIm1lcmN1cmUiOnsic3Vic2NyaWJlIjpbIi9hY2NvdW50cy82MjlhNjU4NmFlNjJiNmJkZDgwYzlmMzciXX19.Zs656VZcPK5AmdtmKsn0KEHfMtDKro69nb__MKrWAixVbe5RdOtdUM0OfLc-BLDeFibuIZi0NbltuED4ftGVOw'
-
-    # bot.saveData()
-    # print(bot.genericQuery("accounts/629a61ba1902c6d08b04a847", method="DELETE"))
-
-    bot.syncAccountInfo()
-    bot.printAccountInfo()
-    # print(bot.queryAccount(me=True))
-    # print(bot.markAsRead("629a67b52083143007c8570d"))
-    # print(bot.getEmail("629a72ca3f55f90a8e67deba"))
-    # bot.printEmailsList()
-
-    # print(bot.exportAllEmails())
-    # print(bot.exportEmail("629a72ca3f55f90a8e67deba"))
     

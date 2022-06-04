@@ -3,7 +3,7 @@
 
 > This the documentation for the tool MailAPI
 > 
-> This tool works over [Mail.tm](https://api.mail.tm/)
+> This tool works over [Mail.tm](https://api.mail.tm/) API
 
 -----------------------------------------------
 ## Module usage
@@ -74,7 +74,143 @@ mail.getEmail("568g72cb3f567f90a34lgdeba")
 mail.exportAllEmails()
 ```
 
+--------------------------------------------------------
 
+## API objects
+
+### Account object
+ ```json
+ {
+  "@context": "string",
+  "@id": "string",
+  "@type": "string",
+  "id": "string",
+  "address": "user@example.com",
+  "quota": 0,
+  "used": 0,
+  "isDisabled": true,
+  "isDeleted": true,
+  "createdAt": "2022-04-01T00:00:00.000Z",
+  "updatedAt": "2022-04-01T00:00:00.000Z"
+ } 
+ ```
+
+### Email object (*from `getEmail()`*)
+
+```json
+{
+  "@context": "string",
+  "@id": "string",
+  "@type": "string",
+  "id": "string",
+  "accountId": "string",
+  "msgid": "string",
+    "from": {
+        "name": "string",
+      "address": "string"
+  },
+  "to": [
+        {
+            "name": "string",
+            "address": "string"
+        }
+    ],
+  "cc": [
+    "string"
+  ],
+  "bcc": [
+    "string"
+  ],
+  "subject": "string",
+  "seen": true,
+  "flagged": true,
+  "isDeleted": true,
+  "verifications": [
+    "string"
+  ],
+  "retention": true,
+  "retentionDate": "2022-04-01T00:00:00.000Z",
+  "text": "string",
+  "html": [
+    "string"
+  ],
+  "hasAttachments": true,
+  "attachments": [
+    {
+      "id": "string",
+      "filename": "string",
+      "contentType": "string",
+      "disposition": "string",
+      "transferEncoding": "string",
+      "related": true,
+      "size": 0,
+      "downloadUrl": "string"
+    }
+  ],
+  "size": 0,
+  "downloadUrl": "string",
+  "createdAt": "2022-04-01T00:00:00.000Z",
+  "updatedAt": "2022-04-01T00:00:00.000Z"
+}
+```
+
+### Email object (*from ``getAllEmails()``*)
+
+```json
+{
+  "hydra:member": [
+    {
+      "@id": "string",
+      "@type": "string",
+      "@context": "string",
+      "id": "string",
+      "accountId": "string",
+      "msgid": "string",
+      "from": {
+          "name": "string",
+          "address": "string"
+      },
+      "to": [
+        {
+            "name": "string",
+            "address": "string"
+        }
+      ],
+      "subject": "string",
+      "intro": "string",
+      "seen": true,
+      "isDeleted": true,
+      "hasAttachments": true,
+      "size": 0,
+      "downloadUrl": "string",
+      "createdAt": "2022-04-01T00:00:00.000Z",
+      "updatedAt": "2022-04-01T00:00:00.000Z"
+    }
+  ],
+  "hydra:totalItems": 0,
+  "hydra:view": {
+    "@id": "string",
+    "@type": "string",
+    "hydra:first": "string",
+    "hydra:last": "string",
+    "hydra:previous": "string",
+    "hydra:next": "string"
+  },
+  "hydra:search": {
+    "@type": "string",
+    "hydra:template": "string",
+    "hydra:variableRepresentation": "string",
+    "hydra:mapping": [
+      {
+        "@type": "string",
+        "variable": "string",
+        "property": "string",
+        "required": true
+      }
+    ]
+  }
+}
+```
 -----------------------------------------------
 ### Attributes list
 1. [`api_url`](#1-apiurl)
