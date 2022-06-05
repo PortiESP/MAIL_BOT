@@ -47,12 +47,14 @@ class MailAPI:
             self.account['id'] = data[2]
             if len(data) == 4:
                 self.token = data[3]
+                self.reqHeaders['Authorization'] = f"Bearer {self.token}"
+
         return 0
 
     # Check api response status codes
     def checkResponse(self, res, msg, valid_codes=None):
         # Default valid codes
-        if not valid_codes: valid_codes [200,201,202,203,204,205]
+        if not valid_codes: valid_codes = [200,201,202,203,204,205]
 
         if res.status_code in valid_codes:
             return res.status_code
