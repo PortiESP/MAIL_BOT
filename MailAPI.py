@@ -1,3 +1,4 @@
+from tkinter.messagebox import showerror
 import requests as req
 import json, time
 
@@ -67,8 +68,13 @@ class MailAPI:
         return False
 
     # Print emails
-    def printEmailsList(self, emailList=None):
+    def printEmailsList(self, emailList=None, seen=True):
         if not emailList: emailList = self.getAllEmails()
+
+        # Hide seen if see=False
+        if not seen: 
+            for i,email in enumerate(emailList):
+                if email['seen']: emailList.pop(i)
 
         print(f"\n\t/========================================[ Emails: {len(emailList)} ]=========================================\\")
         for i, email in enumerate(emailList):
@@ -237,8 +243,8 @@ class MailAPI:
 
         return False
     
-    # Mark email as read
-    def markAsRead(self, eid):
+    # Mark email as seen
+    def markAsSeen(self, eid):
         customHeaders = dict(self.reqHeaders)
         customHeaders['Content-Type'] = "application/merge-patch+json"
         res = req.patch(f"{self.api_url}/messages/{eid}", headers=customHeaders, json={"seen": True})
