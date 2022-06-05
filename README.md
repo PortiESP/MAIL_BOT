@@ -53,8 +53,13 @@ mail.loadData()
 Module calls examples
 
 ```python
+# Update account information
+mail.syncAccountInfo()
+mail.printAccountInfo()
+
 # This is how we print all the emails in a formated way
 mail.printEmailslist()
+
 # This is how we get evary email basic data like: from, id, suject, etc...
 mail.getAllEmails()
 
@@ -63,9 +68,6 @@ mail.getAllEmails()[0]['id']
 
 # Add custom headers
 mail.reqHeaders['User-Agent'] = "Mozilla 5.0 ..."
-
-# Update account information
-mail.syncAccountInfo()
 
 # Query for specific email
 mail.getEmail("568g72cb3f567f90a34lgdeba")
@@ -79,23 +81,30 @@ mail.exportAllEmails()
 ## API objects
 
 ### Account object
- ```json
- {
-  "@context": "string",
-  "@id": "string",
-  "@type": "string",
-  "id": "string",
-  "address": "user@example.com",
-  "quota": 0,
-  "used": 0,
-  "isDisabled": true,
-  "isDeleted": true,
-  "createdAt": "2022-04-01T00:00:00.000Z",
-  "updatedAt": "2022-04-01T00:00:00.000Z"
- } 
- ```
+<details>
+  <summary>Click to expand!</summary> 
+
+  ```json
+  {
+    "@context": "string",
+    "@id": "string",
+    "@type": "string",
+    "id": "string",
+    "address": "user@example.com",
+    "quota": 0,
+    "used": 0,
+    "isDisabled": true,
+    "isDeleted": true,
+    "createdAt": "2022-04-01T00:00:00.000Z",
+    "updatedAt": "2022-04-01T00:00:00.000Z"
+  } 
+  ```
+ </details>
 
 ### Email object (*from `getEmail()`*)
+
+<details>
+<summary>Click to expand!</summary>
 
 ```json
 {
@@ -153,8 +162,13 @@ mail.exportAllEmails()
   "updatedAt": "2022-04-01T00:00:00.000Z"
 }
 ```
+</details>
+
 
 ### Email object (*from ``getAllEmails()``*)
+
+<details>
+<summary>Click to expand!</summary>
 
 ```json
 {
@@ -211,6 +225,8 @@ mail.exportAllEmails()
   }
 }
 ```
+</details>
+
 -----------------------------------------------
 ### Attributes list
 1. [`api_url`](#1-apiurl)
