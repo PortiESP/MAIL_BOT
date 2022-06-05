@@ -147,8 +147,10 @@ class MailAPI:
         return False
 
     # Delete account
-    def deleteAccount(self):
-        res = req.delete(f"{self.api_url}/accounts/{self.account['id']}", headers=self.reqHeaders)
+    def deleteAccount(self, _id=None):
+        if not _id: _id = self.account['id']
+
+        res = req.delete(f"{self.api_url}/accounts/{_id}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Account not found, nothing deleted...") == 204:
             return True
