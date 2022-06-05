@@ -82,8 +82,7 @@ mail.exportAllEmails()
   - Emails use the available storage
   - Deleted emails free its used storage
   - Emails are ordered by the most recent ones first
-
-
+  - API has a limit of 8 requests/second
 
 --------------------------------------------------------
 
