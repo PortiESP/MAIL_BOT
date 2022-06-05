@@ -76,6 +76,15 @@ mail.getEmail("568g72cb3f567f90a34lgdeba")
 mail.exportAllEmails()
 ```
 
+## API characteristics
+
+  - The *quota* is the storage availble
+  - Emails use the available storage
+  - Deleted emails free its used storage
+  - Emails are ordered by the most recent ones first
+
+
+
 --------------------------------------------------------
 
 ## API objects
