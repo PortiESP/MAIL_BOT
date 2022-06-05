@@ -27,27 +27,30 @@ class MailAPI:
         print(f"\tConnected = {bool(self.queryAccount())}")
 
     # Save data to a file
-    def saveData(self):
+    def saveData(self, path="saved_data.csv"):
         # Add token if its set
         if self.token: extra = f",{self.token}"
         else: extra = ''
 
-        with open("saved_data.csv", "w") as fd:
+        with open(path, "w") as fd:
             fd.write(f"{self.creeds['address']},{self.creeds['password']},{self.account['id']}{extra}")
 
         return 0
 
     # Load data from a file (CSV format: address,password,id[,token])
-    def loadData(self, path="saved_data.csv"):
-        with open(path, "r") as fd:
-            data = fd.read().split(",")
+    def loadData(self, path="saved_data.csv", index=0):
 
-            self.creeds['email'] = data[0]
-            self.creeds['password'] = data[1]
-            self.account['id'] = data[2]
-            if len(data) == 4:
-                self.token = data[3]
-                self.reqHeaders['Authorization'] = f"Bearer {self.token}"
+        with open(path, "r") as fd:
+            data = fd.readlines()
+            
+        data = data[index].split(",")
+
+        self.creeds['address'] = data[0]
+        self.creeds['password'] = data[1]
+        self.account['id'] = data[2]
+        if len(data) == 4:
+            self.token = data[3]
+            self.reqHeaders['Authorization'] = f"Bearer {self.token}"
 
         return 0
 

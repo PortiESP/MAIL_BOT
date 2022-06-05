@@ -262,8 +262,8 @@ mail.exportAllEmails()
 ### Data related methods list
 
 1. [`printAccountInfo()`](#1-printaccountinfo)
-2. [`saveData()`](#2-savedata)
-3. [`loadData()`](#3-loaddatafile)
+2. [`saveData()`](#2-savedatapathdefault)
+3. [`loadData()`](#3-loaddatapathdefault)
 4. [`checkResponse()`](#4-checkresponseres-msg)
 5. [`printEmailList()`](#5-printemailslist)
 6. [`exportAllEmails()`](#6-exportallemailsfilepath)
@@ -418,17 +418,21 @@ mail.exportAllEmails()
 
 > Print the account information stored at *`self.account`* object
 
-### 2. `saveData()`
+### 2. `saveData(path=default)`
 
 > Save the credentials and the *account ID* in a CSV file as *'saved_data.csv'*, the data is formatted like *`email,password,id`*
+> 
+> **Parameters**
+> 
+> - `path` *(default='./saved_data.csv')* The name of the CSV file used to load the data
 
-### 3. `loadData(file)`
+### 3. `loadData(path=default)`
 
 > Load the credentials and the *account ID* from a CSV file as *'saved_data.csv'* by default, the data must be formatted this way: *`email,password,id`*
 > 
 > **Parameters**
 > 
-> - `file` *(default='./saved_data.csv')* The name of the CSV file used to load the data
+> - `path` *(default='./saved_data.csv')* The name of the CSV file used to load the data
 
 ### 4. `checkResponse(res, msg)`
 
