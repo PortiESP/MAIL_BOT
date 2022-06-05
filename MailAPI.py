@@ -164,7 +164,7 @@ class MailAPI:
     def deleteAccount(self):
         res = req.delete(f"{self.api_url}/accounts/{self.account['id']}", headers=self.reqHeaders)
 
-        if self.checkResponse(res, "[!] Account not found, nothing deleted...") == 204:
+        if self.checkResponse(res, "[!] Account not found, nothing deleted...", valid_codes=[204]):
             return True
 
         return False
@@ -179,14 +179,15 @@ class MailAPI:
         return res.status_code
 
     # Get account information based on the token(user) or other account based on the id and being autheticated
-    def queryAccount(self, uid=None):
-        if not uid:
-            res = req.get(f"{self.api_url}/me", headers=self.reqHeaders)
-        else:
-            res = req.get(f"{self.api_url}/accounts/{uid}", headers=self.reqHeaders)
-
-        if self.checkResponse(res, "[!] Account not found..."):
+    def queryAccount(self):
+        
+        res = req.get(f"{self.api_url}/me", headers=self.reqHeaders)
+        
+        check = self.checkResponse(res, "[!] Account not found...", valid_codes=[200, 401])
+        if check == 200:
             return res.json()
+        elif check == 401:
+            return "deleted"
 
         return False
             
