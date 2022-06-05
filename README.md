@@ -246,9 +246,9 @@ mail.exportAllEmails()
 7. [`syncAccountInfo()`](#7-syncaccountinfo)
 8. [`genericQuery()`](#8-genericqueryendpoint-methodget-paramsnone-bodynone-jsontrue)
 9. [`getAllEmails()`](#9-getallemails)
-10. [`getEmail()`](#10-getemailid)
-11. [`markAsRead()`](#11-markasreadid)
-12. [`deleteEmailMsg()`](#12-deleteemailmsgid)
+10. [`getEmail()`](#10-getemaileid)
+11. [`markAsRead()`](#11-markasreadeid)
+12. [`deleteEmailMsg()`](#12-deleteemailmsgeid)
 
 ### Data related methods list
 
@@ -345,14 +345,14 @@ mail.exportAllEmails()
 
 > Request the API a token based on the credentials set to *`self.creeds`* , this step is already done by the *`self.login()`* method when called, this method will add the token into the *`self.reqHeaders['Authorization']`* and the *`self.account['token']`* object
 
-### 6. `queryAccount(me=False, headers=self.headers)`
+### 6. `queryAccount(uid=False)`
 
 > Requets data of an specific account based on the *account ID*, to do this we **must** have a token set
 > 
 > **Parameters**
 > 
-> - `me` *(defautl=False)* Query the current logged-in account, *based on the id at `self.account`*
-> - `headers` Custom headers for the query, *must add: accept and Content-Type = application/json*
+> - `uid` *(defautl=False)* Query the current logged-in account, *based on the id at `self.account`*
+
 
 ### 7. `syncAccountInfo()`
 
@@ -374,29 +374,29 @@ mail.exportAllEmails()
 
 > Get all the emails of the current logged-in account in JSON format
 
-### 10. `getEmail(id)`
+### 10. `getEmail(eid)`
 
 > Get specific email based on the *email ID* in JSON format
 > 
 > **Parameters**
 > 
-> - `id` ID of the email we want to get data
+> - `eid` ID of the email we want to get data
 
-### 11. `markAsRead(id)`
+### 11. `markAsRead(eid)`
 
 > Mark as read an specific email based on the *email ID*
 > 
 > **Parameters**
 > 
-> - `id` ID of the email we want to mark as read
+> - `eid` ID of the email we want to mark as read
 
-### 12. `deleteEmailMsg(id)`
+### 12. `deleteEmailMsg(eid)`
 
 > Delete an specific email based on the *email ID*
 > 
 > **Parameters**
 > 
-> - `id` ID of the email we want to delete
+> - `eid` ID of the email we want to delete
 
 
 

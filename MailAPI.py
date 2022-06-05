@@ -13,7 +13,8 @@ class MailAPI:
             "address": None,
             "password": None
         }
-        self.account = {} 
+        self.account = {}
+        
         self.token = None
 
 
@@ -23,17 +24,20 @@ class MailAPI:
         print("\n\t=======[ Account info ]=======")
         for k, v in self.account.items():
             print(f"\t{k} = {v}")
-        print(f"\tConnected = {bool(self.queryAccount(me=True))}")
+        print(f"\tConnected = {bool(self.queryAccount())}")
 
     # Save data to a file
     def saveData(self):
-    # Save data to a file
+        # Add token if its set
+        if self.token: extra = f",{self.token}"
+        else: extra = ''
+
         with open("saved_data.csv", "w") as fd:
-            fd.write(f"{self.account['address']},{self.creeds['password']},{self.account['id']}")
+            fd.write(f"{self.creeds['address']},{self.creeds['password']},{self.account['id']}{extra}")
 
         return 0
 
-    # Load data from a file (CSV format: address,password,id)
+    # Load data from a file (CSV format: address,password,id[,token])
     def loadData(self, path="saved_data.csv"):
         with open(path, "r") as fd:
             data = fd.read().split(",")
@@ -41,12 +45,16 @@ class MailAPI:
             self.creeds['email'] = data[0]
             self.creeds['password'] = data[1]
             self.account['id'] = data[2]
-
+            if len(data) == 4:
+                self.token = data[3]
         return 0
 
     # Check api response status codes
-    def checkResponse(self, res, msg):
-        if res.status_code <= 201:
+    def checkResponse(self, res, msg, valid_codes=None):
+        # Default valid codes
+        if not valid_codes: valid_codes [200,201,202,203,204,205]
+
+        if res.status_code in valid_codes:
             return res.status_code
         elif res.status_code >= 400:
             raise Exception(msg, f"STATUS_CODE={res.status_code}; CONTENT={res.content}")
@@ -93,10 +101,10 @@ class MailAPI:
         return emailsFormated
 
     # Export a single mail in JSON format to a file
-    def exportEmail(self, _id, file=None):
-        if not file: file = f"./exportMail_{_id}.json"
+    def exportEmail(self, uid, file=None):
+        if not file: file = f"./exportMail_{uid}.json"
 
-        email = self.getEmail(_id)
+        email = self.getEmail(uid)
         emailFormated = json.dumps(email, indent=4)
 
         with open(file, 'w') as fd:
@@ -120,6 +128,7 @@ class MailAPI:
             "address": email, 
             "password": password
         }
+        self.account = {}
 
         res = req.post(f"{self.api_url}/accounts", headers=self.reqHeaders, json=self.creeds)
         if self.checkResponse(res, "[!] Address is already in use..."):
@@ -167,16 +176,15 @@ class MailAPI:
         return res.status_code
 
     # Get account information based on the token(user) or other account based on the id and being autheticated
-    def queryAccount(self, me=False, _id=None):
-        if not _id: _id = self.account['id']
-        if me:
+    def queryAccount(self, uid=None):
+        if not uid:
             res = req.get(f"{self.api_url}/me", headers=self.reqHeaders)
         else:
-            res = req.get(f"{self.api_url}/accounts/{_id}", headers=self.reqHeaders)
+            res = req.get(f"{self.api_url}/accounts/{uid}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Account not found..."):
             return res.json()
-
+            
     # Update the data of 'self.account'
     def syncAccountInfo(self):
         res = req.get(f"{self.api_url}/me", headers=self.reqHeaders)
@@ -209,17 +217,17 @@ class MailAPI:
             return res.json()
 
     # Get specific email by id, retrieves more data except 'intro' turns into 'text'
-    def getEmail(self, _id):
-        res = req.get(f"{self.api_url}/messages/{_id}", headers=self.reqHeaders)
+    def getEmail(self, eid):
+        res = req.get(f"{self.api_url}/messages/{eid}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Error getting email by id..."):
             return res.json()
     
     # Mark email as read
-    def markAsRead(self, _id):
+    def markAsRead(self, eid):
         customHeaders = dict(self.reqHeaders)
         customHeaders['Content-Type'] = "application/merge-patch+json"
-        res = req.patch(f"{self.api_url}/messages/{_id}", headers=customHeaders, json={"seen": True})
+        res = req.patch(f"{self.api_url}/messages/{eid}", headers=customHeaders, json={"seen": True})
 
         if self.checkResponse(res, "[!] Error marking email as read..."):
             if res.json()['seen'] == True:
@@ -228,8 +236,8 @@ class MailAPI:
             return False
 
     # Delete email from the inbox
-    def deleteEmailMsg(self, _id):
-        res = req.delete(f"{self.api_url}/messages/{_id}", headers=self.reqHeaders)
+    def deleteEmailMsg(self, eid):
+        res = req.delete(f"{self.api_url}/messages/{eid}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Error deleting email..."):
             return True
