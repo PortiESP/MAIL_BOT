@@ -20,7 +20,7 @@ class MailAPI:
 # ----------------------[ Data operations ]----------------------
     # Print data
     def printAccountInfo(self):
-        print("\n=======[ Account info ]=======")
+        print("\n\t=======[ Account info ]=======")
         for k, v in self.account.items():
             print(f"\t{k} = {v}")
         print(f"\tConnected = {bool(self.queryAccount(me=True))}")
@@ -147,13 +147,13 @@ class MailAPI:
         return False
 
     # Delete account
-    def deleteAccount(self, _id=None):
-        if not _id: _id = self.account['id']
-
-        res = req.delete(f"{self.api_url}/accounts/{_id}", headers=self.reqHeaders)
+    def deleteAccount(self):
+        res = req.delete(f"{self.api_url}/accounts/{self.account['id']}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Account not found, nothing deleted...") == 204:
             return True
+
+        return False
 
     # Get account token
     def getToken(self):

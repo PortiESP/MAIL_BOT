@@ -240,7 +240,7 @@ mail.exportAllEmails()
 1. [`queryDomain()`](#1-querydomainindex1)
 2. [`createAccount()`](#2-createaccountemail-password)
 3. [`login()`](#3-loginemail-password)
-4. [`deleteAccount()`](#4-deleteaccountid)
+4. [`deleteAccount()`](#4-deleteaccount)
 5. [`getToken()`](#5-gettoken)
 6. [`queryAccount()`](#6-queryaccountmefalse-headersselfheaders)
 7. [`syncAccountInfo()`](#7-syncaccountinfo)
@@ -337,9 +337,9 @@ mail.exportAllEmails()
 > - `email` Email used to login
 > - `password` Password of the account
 
-### 4. `deleteAccount(id)`
+### 4. `deleteAccount()`
 
-> Delete the account based on the *account ID*
+> Delete the current logged-in account
 
 ### 5. `getToken()`
 
