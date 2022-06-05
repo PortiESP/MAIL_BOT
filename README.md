@@ -448,7 +448,7 @@ mail.exportAllEmails()
 > 
 > **Parameters**
 > 
-> - `show_seen` Select if you want to display also emails marked as seen
+> - `seen` Select if you want to display also emails marked as seen, *default=True*
 
 ### 6. `exportAllEmails(file='path')`
 
