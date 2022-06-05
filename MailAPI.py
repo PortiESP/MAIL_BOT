@@ -139,7 +139,7 @@ class MailAPI:
         if self.checkResponse(res, "[!] Address is already in use..."):
             resJSON = res.json()
             self.account['id'] = resJSON['id']
-            return 0
+            return resJSON
 
         return 1
 
@@ -154,11 +154,11 @@ class MailAPI:
             "password": password
         }
 
-        if self.getToken():
-            self.syncAccountInfo()
-            return True
-        
-        return False
+        token = self.getToken()['token']
+        self.reqHeaders['Authorization'] = f"Bearer {token}"
+        self.token = token
+        self.syncAccountInfo()
+        return [self.creeds, token]
 
     # Delete account
     def deleteAccount(self):
@@ -174,9 +174,7 @@ class MailAPI:
         res = req.post(f"{self.api_url}/token", headers=self.reqHeaders, json=self.creeds)
 
         if self.checkResponse(res, "[!] Token has not been sent..."):
-            self.reqHeaders['Authorization'] = f"Bearer {res.json()['token']}"
-            self.token = res.json()['token']
-            return True
+            return res.json()
 
         return res.status_code
 
@@ -189,6 +187,8 @@ class MailAPI:
 
         if self.checkResponse(res, "[!] Account not found..."):
             return res.json()
+
+        return False
             
     # Update the data of 'self.account'
     def syncAccountInfo(self):
@@ -196,6 +196,10 @@ class MailAPI:
 
         if self.checkResponse(res, "[!] Account not found..."):
             self.account = res.json()
+
+            return self.account
+
+        return False
 
     # Make generic queries for any endpoint
     def genericQuery(self, endpoint, method='GET', params=None, body=None, json=True):
@@ -221,12 +225,16 @@ class MailAPI:
         if self.checkResponse(res, "[!] Error getting emails..."):
             return res.json()
 
+        return False
+
     # Get specific email by id, retrieves more data except 'intro' turns into 'text'
     def getEmail(self, eid):
         res = req.get(f"{self.api_url}/messages/{eid}", headers=self.reqHeaders)
 
         if self.checkResponse(res, "[!] Error getting email by id..."):
             return res.json()
+
+        return False
     
     # Mark email as read
     def markAsRead(self, eid):
@@ -238,7 +246,7 @@ class MailAPI:
             if res.json()['seen'] == True:
                 return True
             
-            return False
+        return False
 
     # Delete email from the inbox
     def deleteEmailMsg(self, eid):
@@ -246,8 +254,8 @@ class MailAPI:
 
         if self.checkResponse(res, "[!] Error deleting email..."):
             return True
-        else:
-            return False
+        
+        return False
 
 
 
