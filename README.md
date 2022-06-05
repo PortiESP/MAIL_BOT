@@ -424,7 +424,7 @@ mail.exportAllEmails()
 > 
 > **Parameters**
 > 
-> - `path` *(default='./saved_data.csv')* The name of the CSV file used to load the data
+> - `path` *(default='./saved_data.csv')* The name of the CSV file used to save the data
 
 ### 3. `loadData(path=default)`
 
