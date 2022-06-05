@@ -255,7 +255,7 @@ mail.exportAllEmails()
 8. [`genericQuery()`](#8-genericqueryendpoint-methodget-paramsnone-bodynone-jsontrue)
 9. [`getAllEmails()`](#9-getallemails)
 10. [`getEmail()`](#10-getemaileid)
-11. [`markAsRead()`](#11-markasreadeid)
+11. [`markAsSeen()`](#11-markasseeneid)
 12. [`deleteEmailMsg()`](#12-deleteemailmsgeid)
 
 ### Data related methods list
@@ -264,7 +264,7 @@ mail.exportAllEmails()
 2. [`saveData()`](#2-savedatapathdefault)
 3. [`loadData()`](#3-loaddatapathdefault)
 4. [`checkResponse()`](#4-checkresponseres-msg)
-5. [`printEmailList()`](#5-printemailslist)
+5. [`printEmailList()`](#5-printemailslistseentrue)
 6. [`exportAllEmails()`](#6-exportallemailsfilepath)
 7. [`exportMail()`](#7-exportemailid-file)
 
@@ -390,7 +390,7 @@ mail.exportAllEmails()
 > 
 > - `eid` ID of the email we want to get data
 
-### 11. `markAsRead(eid)`
+### 11. `markAsSeen(eid)`
 
 > Mark as read an specific email based on the *email ID*
 > 
@@ -442,9 +442,13 @@ mail.exportAllEmails()
 > - `res` Response object from the `requests` module
 > - `msg` Custom message to print if the module raises an exception
 
-### 5. `printEmailsList()`
+### 5. `printEmailsList(seen=True)`
 
 > Print all the emails in a formatted way
+> 
+> **Parameters**
+> 
+> - `show_seen` Select if you want to display also emails marked as seen
 
 ### 6. `exportAllEmails(file='path')`
 
