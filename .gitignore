@@ -2,5 +2,5 @@ testings.py
 __pycache__/*
 saved_data.csv
 .accounts_cache.csv
-test.txt
 .vscode/launch.json
+.gitignore
