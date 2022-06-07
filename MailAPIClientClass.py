@@ -178,7 +178,7 @@ class MailCLI:
     def outputCache(self, path):
         with open(path, 'w') as fd:
             for acc in self.cacheAccounts:
-                fd.write(f"{acc.creeds['address']}:{acc.creeds['password']}")
+                fd.write(f"{acc.creeds['address']}:{acc.creeds['password']}\n")
 
 
     # Print the inbox of all the logged-in accounts
