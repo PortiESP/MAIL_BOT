@@ -164,7 +164,6 @@ class MailAPI:
         token = self.getToken()['token']
         self.reqHeaders['Authorization'] = f"Bearer {token}"
         self.token = token
-        self.syncAccountInfo()
         return [self.creeds, token]
 
     # Delete account
