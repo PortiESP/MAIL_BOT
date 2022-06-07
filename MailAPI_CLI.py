@@ -7,7 +7,7 @@ from sys import exit, argv
 from requests import get
 
 # Tool modules
-from MailAPI import MailAPI
+from API_module.MailAPI import MailAPI
 
 # Handle Ctrl+C
 def ctrl_c(sig, frame):
